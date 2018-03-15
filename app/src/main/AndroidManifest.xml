@@ -34,7 +34,8 @@
         </provider>
 
         <activity android:name=".CropImageDemoActivity" />
-        <activity android:name=".CreateGalleryDemoActivity"></activity>
+        <activity android:name=".CreateGalleryDemoActivity" />
+        <activity android:name=".CompressVideoDemoActivity"></activity>
     </application>
 
 </manifest>

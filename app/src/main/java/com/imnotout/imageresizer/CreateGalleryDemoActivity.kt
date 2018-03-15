@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import com.imnotout.app.NetworkIO.BASE_WEB_API_URL
 import com.imnotout.app.NetworkIO.HttpService
+import com.imnotout.imageresizer.Models.MediaType
 import kotlinx.android.synthetic.main.activity_create_gallery_demo.*
 
 const val MEDIA_IMAGE_SIZE: Int = 800 // Max Size in Pixels for width/height which so ever is greater
@@ -45,7 +46,7 @@ class CreateGalleryDemoActivity : AppCompatActivity() {
                     val downscaledImageUri = createImageFile(this, downscaledBitmap)
                     val inStream = contentResolver.openInputStream(downscaledImageUri)
 
-                    asyncWithException { HttpService.post(postUrl, inStream) }
+                    asyncWithException { HttpService.post(postUrl, MediaType.IMAGE, inStream) }
                 }
             }
         }

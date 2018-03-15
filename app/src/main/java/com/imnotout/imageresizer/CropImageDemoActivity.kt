@@ -12,6 +12,7 @@ import android.support.v4.content.FileProvider
 import android.util.Log
 import com.imnotout.app.NetworkIO.BASE_WEB_API_URL
 import com.imnotout.app.NetworkIO.HttpService
+import com.imnotout.imageresizer.Models.MediaType
 import com.imnotout.imageresizer.NetworkIO.loadImage
 import kotlinx.android.synthetic.main.activity_crop_image_demo.*
 import kotlinx.coroutines.experimental.async
@@ -31,7 +32,8 @@ class CropImageDemoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crop_image_demo)
-
+//        To allow the user to select both images/videos from gallery, check the below link
+//        https//stackoverflow.com/questions/4922037/android-let-user-pick-image-or-video-from-gallery
         btn_pick_image.setOnClickListener {
 //            val getIntent = Intent(Intent.ACTION_GET_CONTENT)
 //            getIntent.type = "image/*"
@@ -79,7 +81,7 @@ class CropImageDemoActivity : AppCompatActivity() {
                     val postUrl = "${BASE_WEB_API_URL}api/imageupload"
                     loadImage(img_result, downscaledImageUri)
                     val inStream = contentResolver.openInputStream(downscaledImageUri)
-                    asyncWithException { HttpService.post(postUrl, inStream) }
+                    asyncWithException { HttpService.post(postUrl, MediaType.IMAGE, inStream) }
                 }
             }
         }

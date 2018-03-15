@@ -6,16 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.imnotout.imageresizer.MainActivity">
-    <Button android:id="@+id/btn_crop_image_demo"
+    <Button android:id="@+id/btn_pick_video"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Crop Image Demo" />
-    <Button android:id="@+id/btn_create_gallery_demo"
+        android:text="Pick Video From Gallery" />
+    <Button android:id="@+id/btn_capture_video"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create Match Gallery Demo" />
-    <Button android:id="@+id/btn_video_compress_demo"
+        android:text="Capture Video" />
+    <VideoView android:id="@+id/video_downsized"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Compress Video Demo" />
+        android:layout_height="300dp"/>
 </LinearLayout>

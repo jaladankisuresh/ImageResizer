@@ -16,5 +16,8 @@ class MainActivity : AppCompatActivity() {
         btn_create_gallery_demo.setOnClickListener{
             startActivity<CreateGalleryDemoActivity>()
         }
+        btn_video_compress_demo.setOnClickListener{
+            startActivity<CompressVideoDemoActivity>()
+        }
     }
 }

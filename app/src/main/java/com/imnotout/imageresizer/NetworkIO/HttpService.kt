@@ -1,6 +1,5 @@
 package com.imnotout.app.NetworkIO
 
-import android.net.Uri
 import android.util.Log
 import android.webkit.CookieManager
 import com.imnotout.imageresizer.LOG_APP_TAG
@@ -8,7 +7,6 @@ import com.imnotout.imageresizer.NetworkIO.StreamRequestBody
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.async
 import okhttp3.*
-import java.io.File
 import java.io.InputStream
 import java.util.*
 import okhttp3.RequestBody
@@ -16,6 +14,7 @@ import okhttp3.MultipartBody
 import java.text.SimpleDateFormat
 
 
+typealias AppMediaType = com.imnotout.imageresizer.Models.MediaType
 const val BASE_WEB_API_URL = "http://192.168.11.9:3000/"
 //const val BASE_WEB_API_URL = "http://10.0.2.2:3000/"
 //const val BASE_WEB_API_URL = "https://imnotout.com/api/"
@@ -45,15 +44,18 @@ class HttpService {
             return makeIORequest(request).await()
         }
 //        https://github.com/square/okhttp/wiki/Recipes
-        suspend fun post(url: String, stream: InputStream) : String {
-            val ImageType = MediaType.parse("image/jpeg")
+        suspend fun post(url: String, mediaType: AppMediaType, stream: InputStream) : String {
+            val okhttpMediaType = MediaType.parse(mediaType.value)
 //            val requestBody = StreamRequestBody(ImageType, stream)
             val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-            val imageFileName = "JPEG_${timeStamp}.jpg"
+            val mediaFileName = when(mediaType) {
+                AppMediaType.IMAGE -> "${timeStamp}_IMAGE.jpg"
+                else -> "${timeStamp}_VIDEO.mp4"
+            }
             val requestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("file", imageFileName,
-                        StreamRequestBody(ImageType, stream))
+                .addFormDataPart("file", mediaFileName,
+                        StreamRequestBody(okhttpMediaType, stream))
                 .build()
             val request = Request.Builder()
                     .url(url)
